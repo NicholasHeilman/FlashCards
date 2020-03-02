@@ -10,7 +10,7 @@ import com.flashcards.dao.QuestionDao
 
 class MainActivity : AppCompatActivity() {
 
-    private val newQuestionActivity = 1
+//    private val newQuestionActivity = 1
     private lateinit var questionViewModel : QuestionViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
