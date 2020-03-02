@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FlashCards</string>
+    <string name="question">"Let's Begin "</string>
 </resources>
