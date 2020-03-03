@@ -2,4 +2,6 @@
     <string name="app_name">FlashCards</string>
     <string name="question">"Let's Begin "</string>
     <string name="hello_blank_fragment">This will be the Answer</string>
+    <string name="show_answer">Show Answer</string>
+    <string name="next_question">Next Question</string>
 </resources>
