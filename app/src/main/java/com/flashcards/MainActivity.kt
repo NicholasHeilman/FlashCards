@@ -11,7 +11,7 @@ import com.flashcards.dao.QuestionDao
 
 class MainActivity : AppCompatActivity() {
 
-//    private val newQuestionActivity = 1
+    private var showingBack = false
     private lateinit var questionViewModel : QuestionViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,13 +23,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-
-
-
         questionViewModel = ViewModelProvider(this).get(QuestionViewModel::class.java)
 
         question_btn.setOnClickListener{
-//            Toast.makeText(this,"Button Clicked", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Question Button Clicked", Toast.LENGTH_LONG).show()
 //            tvAnswer.visibility = View.INVISIBLE
             questionViewModel.allQuestion.observe(this, Observer {
                 var oldRand : Int = -1
@@ -46,11 +43,42 @@ class MainActivity : AppCompatActivity() {
         }
 
         answer_btn.setOnClickListener{
-
+            Toast.makeText(this,"Answer Button Clicked", Toast.LENGTH_SHORT).show()
+            flipCard()
         }
 
 
     }// end onCreate
+
+    private fun flipCard() {
+        if (showingBack) {
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.card_flip_right_in,
+                    R.anim.card_flip_right_out,
+                    R.anim.card_flip_left_in,
+                    R.anim.card_flip_left_out
+                )
+                .replace(R.id.container, QuestionFragment())
+                .addToBackStack(null)
+                .commit()
+            showingBack = false
+            answer_btn.text = "Show Answer"
+        } else {
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.card_flip_right_in,
+                    R.anim.card_flip_right_out,
+                    R.anim.card_flip_left_in,
+                    R.anim.card_flip_left_out
+                )
+                .replace(R.id.container, AnswerFragment())
+                .addToBackStack(null)
+                .commit()
+            showingBack = true
+            answer_btn.text = "Show Question"
+        }
+    }
 
 
 }
