@@ -17,39 +17,40 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if (savedInstanceState == null ){
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container, QuestionFragment())
+                .commit()
+        }
+
+
+
 
         questionViewModel = ViewModelProvider(this).get(QuestionViewModel::class.java)
 
         question_btn.setOnClickListener{
 //            Toast.makeText(this,"Button Clicked", Toast.LENGTH_LONG).show()
-            tvAnswer.visibility = View.INVISIBLE
+//            tvAnswer.visibility = View.INVISIBLE
             questionViewModel.allQuestion.observe(this, Observer {
                 var oldRand : Int = -1
                 var rand = (it.indices).random()
-
                 while (rand == oldRand){
                     rand = (it.indices).random()
                 }
                 if (rand != oldRand){
-                    tvQuestion.text = it[rand].question
-                    tvAnswer.text = it[rand].answer
+//                    QuestionFragment.tvQuestion.text = it[rand].question
+//                    AnswerFragment.tvAnswer.text = it[rand].answer
                     oldRand = rand
                 }
             })
         }
 
         answer_btn.setOnClickListener{
-             showHide(tvAnswer)
+
         }
 
 
     }// end onCreate
 
-    private fun showHide(view: View) {
-        tvAnswer.visibility = if (view.visibility == View.VISIBLE){
-            View.INVISIBLE
-        } else{
-            View.VISIBLE
-        }
-    }
+
 }
